@@ -58,7 +58,7 @@ select{background:#101923;color:var(--text);border:1px solid #ffffff30}#message{
  <button class="secondary" id="resetLearning">学習データを初期化</button>
 </div>
 <div class="pill" id="learningStatus" style="display:block;margin-top:12px">学習済み：0局 · 初期AI</div>
-<div class="rules" id="trainingProgress" aria-live="polite">学習はブラウザ内で実行されます。学習結果はこのブラウザに保存されます。</div>
+<div class="rules" id="trainingProgress" aria-live="polite">先手（最初に石を動かす側）と後手の勝利数・引き分け数を累計記録します。学習結果はこのブラウザに保存されます。</div>
 <div id="message" role="status">あなたが先手です。石の入った穴を選んでください。</div>
 <div class="rules">ルール：各穴4個で開始。自分のゴールを通り、相手のゴールは飛ばして反時計回りに石をまきます。最後の石が自分のゴールに入ると追加ターン。最後の石が自分側の空の穴に入り、その向かい側に石がある場合は両方を獲得します。どちらかの側の穴がすべて空になると終了し、残りの石は反対側のプレイヤーが獲得します。</div>
 </section></main>
@@ -73,7 +73,7 @@ let learning={weights:DEFAULT_WEIGHTS.slice(),games:0,wins:0,losses:0,draws:0};
 try{const saved=JSON.parse(localStorage.getItem(LEARN_KEY)||"null");if(saved&&Array.isArray(saved.weights)&&saved.weights.length===4)learning={...learning,...saved};}catch(e){}
 function saveLearning(){try{localStorage.setItem(LEARN_KEY,JSON.stringify(learning));}catch(e){}updateLearningStatus();}
 function updateLearningStatus(){
- $("learningStatus").textContent=`学習済み：${learning.games.toLocaleString()}局 · P1勝 ${learning.wins.toLocaleString()} / P2勝 ${learning.losses.toLocaleString()} / 引分 ${learning.draws.toLocaleString()}`;
+ $("learningStatus").textContent=`学習済み：${learning.games.toLocaleString()}局 · 先手勝 ${learning.wins.toLocaleString()}局 / 後手勝 ${learning.losses.toLocaleString()}局 / 引分 ${learning.draws.toLocaleString()}局`;
 }
 const $=id=>document.getElementById(id);
 const ownPits=p=>p===0?[0,1,2,3,4,5]:[7,8,9,10,11,12];
@@ -146,12 +146,12 @@ async function trainSelfPlay(total){
   learning.losses+=s.scores[0]<s.scores[1]?1:0;learning.draws+=s.scores[0]===s.scores[1]?1:0;
   completed++;
   if(completed%10===0||completed===total){
-   $("trainingProgress").textContent=`学習中：${completed.toLocaleString()} / ${total.toLocaleString()}局（今回 P1勝 ${w}・P2勝 ${l}・引分 ${d}）`;
+   $("trainingProgress").textContent=`学習中：${completed.toLocaleString()} / ${total.toLocaleString()}局（今回 先手勝 ${w}・後手勝 ${l}・引分 ${d}）`;
    updateLearningStatus();await new Promise(r=>setTimeout(r,0));
   }
  }
  saveLearning();
- $("trainingProgress").textContent=`学習完了：${completed.toLocaleString()}局を追加しました。今回の結果：P1勝 ${w}・P2勝 ${l}・引分 ${d}。学習後のAIで対戦できます。`;
+ $("trainingProgress").textContent=`学習完了：${completed.toLocaleString()}局を追加しました。今回の結果：先手勝 ${w}局・後手勝 ${l}局・引分 ${d}局。学習後のAIで対戦できます。`;
  training=false;$("trainButton").disabled=false;$("watchCpu").disabled=false;$("newGame").disabled=false;
 }
 async function watchCpuGame(){
