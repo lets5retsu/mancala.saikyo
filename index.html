@@ -3,219 +3,140 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Oware AI</title>
+<title>Kalah AI</title>
 <style>
-:root { color-scheme: dark; --bg:#101923; --panel:#1c2a38; --pit:#d9a45b; --pit2:#f0c27b; --text:#f4f1e8; --muted:#aab7c4; --accent:#67d5b5; }
-* { box-sizing:border-box }
-body { margin:0; min-height:100vh; background:radial-gradient(ellipse at top,#24394b,#101923 65%); color:var(--text); font-family:system-ui,-apple-system,"Segoe UI",sans-serif; }
-main { width:min(960px,94vw); margin:28px auto; }
-header { display:flex; justify-content:space-between; align-items:end; gap:16px; flex-wrap:wrap; margin-bottom:18px; }
-h1 { margin:0; font-size:clamp(1.8rem,5vw,2.7rem); letter-spacing:.04em }
-.sub { color:var(--muted); margin-top:5px }
-.panel { background:#1c2a38eF; border:1px solid #ffffff1c; border-radius:18px; padding:18px; box-shadow:0 18px 50px #0005; }
-.status { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:14px; }
-.pill { border:1px solid #ffffff2b; border-radius:999px; padding:7px 12px; color:var(--muted); font-size:.9rem }
-.scoreboard { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:18px }
-.score { background:#101923; border-radius:12px; padding:12px 14px; display:flex; justify-content:space-between; align-items:center }
-.score strong { font-size:1.8rem; color:var(--accent) }
-.board { background:linear-gradient(135deg,#89552f,#5c351f); border:8px solid #432718; border-radius:28px; padding:18px 14px; display:grid; grid-template-columns:70px 1fr 70px; gap:12px; align-items:stretch; box-shadow:inset 0 4px 12px #0005; }
-.store { border-radius:40px; background:linear-gradient(145deg,#3d2418,#25150f); border:2px solid #b77b42; display:flex; flex-direction:column; justify-content:center; align-items:center; min-height:170px; }
-.store span { color:#d8b58c; font-size:.8rem }
-.store b { font-size:2rem; margin-top:8px }
-.pits { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:8px; align-content:center }
-.rowlabel { grid-column:1/-1; color:#f1d1a4; font-size:.8rem; text-align:center; }
-.pit { aspect-ratio:1/1; min-width:0; border:2px solid #b77b42; border-radius:50%; background:radial-gradient(circle at 35% 25%,#80502e,#382014 75%); color:white; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; position:relative; box-shadow:inset 0 5px 12px #0008,0 3px 3px #0004; transition:transform .12s,border-color .12s; }
-.pit:hover:not(:disabled) { transform:translateY(-3px); border-color:#ffe0a5 }
-.pit:disabled { cursor:default; opacity:.78 }
-.pit.legal { outline:3px solid var(--accent); outline-offset:2px }
-.pit .count { font-weight:800; font-size:clamp(1rem,3vw,1.5rem); text-shadow:0 2px 3px #000 }
-.pit .num { color:#e8c59c; font-size:.65rem; margin-top:2px }
-.controls { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:18px }
-button,select { border:0; border-radius:10px; padding:11px 15px; font:inherit }
-button { background:var(--accent); color:#10231f; font-weight:750; cursor:pointer }
-button.secondary { background:#34495b; color:var(--text); border:1px solid #ffffff24 }
-button:disabled { opacity:.5; cursor:not-allowed }
-select { background:#101923; color:var(--text); border:1px solid #ffffff30 }
-#message { margin-top:14px; min-height:1.5em; color:#f4d7a4 }
-.rules { color:var(--muted); font-size:.88rem; line-height:1.65; margin-top:16px }
-@media(max-width:600px) {
- main { margin:14px auto }
- .panel { padding:12px }
- .board { grid-template-columns:48px 1fr 48px; gap:6px; padding:10px 6px; border-width:5px; border-radius:20px }
- .pits { gap:4px }
- .store { min-height:130px; border-radius:24px }
- .store b { font-size:1.45rem }
- .pit { border-width:1px }
- .pit .num { font-size:.55rem }
-}
+:root{color-scheme:dark;--bg:#101923;--panel:#1c2a38;--text:#f4f1e8;--muted:#aab7c4;--accent:#67d5b5}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at top,#24394b,#101923 65%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+main{width:min(960px,94vw);margin:28px auto}header{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+h1{margin:0;font-size:clamp(1.8rem,5vw,2.7rem);letter-spacing:.04em}.sub{color:var(--muted);margin-top:5px}
+.panel{background:#1c2a38ef;border:1px solid #ffffff1c;border-radius:18px;padding:18px;box-shadow:0 18px 50px #0005}
+.status{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.pill{border:1px solid #ffffff2b;border-radius:999px;padding:7px 12px;color:var(--muted);font-size:.9rem}
+.scoreboard{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}.score{background:#101923;border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}.score strong{font-size:1.8rem;color:var(--accent)}
+.board{background:linear-gradient(135deg,#89552f,#5c351f);border:8px solid #432718;border-radius:28px;padding:18px 14px;display:grid;grid-template-columns:72px 1fr 72px;gap:12px;align-items:stretch;box-shadow:inset 0 4px 12px #0005}
+.store{border-radius:40px;background:linear-gradient(145deg,#3d2418,#25150f);border:2px solid #b77b42;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:190px}
+.store span{color:#d8b58c;font-size:.8rem}.store b{font-size:2rem;margin-top:8px}
+.pits{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;align-content:center}.rowlabel{grid-column:1/-1;color:#f1d1a4;font-size:.8rem;text-align:center}
+.pit{aspect-ratio:1/1;min-width:0;border:2px solid #b77b42;border-radius:50%;background:radial-gradient(circle at 35% 25%,#80502e,#382014 75%);color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;box-shadow:inset 0 5px 12px #0008,0 3px 3px #0004;transition:transform .12s,border-color .12s}
+.pit:hover:not(:disabled){transform:translateY(-3px);border-color:#ffe0a5}.pit:disabled{cursor:default;opacity:.78}.pit.legal{outline:3px solid var(--accent);outline-offset:2px}
+.pit.active{border-color:#fff2b5;box-shadow:0 0 0 4px #ffe39b88,0 0 24px #ffd36b;transform:scale(1.07)}
+.pit.active:after{content:"●";position:absolute;top:-9px;right:-5px;color:#fff0b2;font-size:1.05rem;text-shadow:0 1px 5px #000;animation:drop .22s ease-out}
+.pit.captured{border-color:#ffdf75;background:radial-gradient(circle at 35% 25%,#a66c35,#4a2815 75%);animation:capturePulse .45s ease-in-out}
+@keyframes drop{from{transform:translateY(-13px) scale(.5);opacity:.2}to{transform:translateY(0) scale(1);opacity:1}}
+@keyframes capturePulse{0%,100%{box-shadow:inset 0 5px 12px #0008}50%{box-shadow:0 0 0 5px #ffd36b99,0 0 25px #ffd36b}}
+.pit .count{font-weight:800;font-size:clamp(1rem,3vw,1.5rem);text-shadow:0 2px 3px #000}.pit .num{color:#e8c59c;font-size:.65rem;margin-top:2px}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:18px}button,select{border:0;border-radius:10px;padding:11px 15px;font:inherit}
+button{background:var(--accent);color:#10231f;font-weight:750;cursor:pointer}button.secondary{background:#34495b;color:var(--text);border:1px solid #ffffff24}button:disabled{opacity:.5;cursor:not-allowed}
+select{background:#101923;color:var(--text);border:1px solid #ffffff30}#message{margin-top:14px;min-height:1.5em;color:#f4d7a4}
+.extra{display:none;margin:10px 0 0;padding:10px 14px;border-radius:12px;background:#174c43;border:1px solid #67d5b5;color:#c8fff0;font-weight:800;text-align:center;font-size:1.08rem}
+.extra.show{display:block;animation:pop .35s ease-out}@keyframes pop{from{transform:scale(.94);opacity:.3}to{transform:scale(1);opacity:1}}
+.rules{color:var(--muted);font-size:.88rem;line-height:1.65;margin-top:16px}
+@media(max-width:600px){main{margin:14px auto}.panel{padding:12px}.board{grid-template-columns:48px 1fr 48px;gap:6px;padding:10px 6px;border-width:5px;border-radius:20px}.pits{gap:4px}.store{min-height:140px;border-radius:24px}.store b{font-size:1.45rem}.pit{border-width:1px}.pit .num{font-size:.55rem}}
 </style>
 </head>
 <body>
 <main>
-<header>
- <div><h1>OWARE <span style="color:var(--accent)">AI</span></h1><div class="sub">人間 vs CPU · 自己対戦型AIのためのベース</div></div>
- <div class="pill">Oware / 4 seeds per pit</div>
-</header>
+<header><div><h1>KALAH <span style="color:var(--accent)">AI</span></h1><div class="sub">人間 vs CPU · 先読み探索CPU</div></div><div class="pill">Kalah / 4 seeds per pit</div></header>
 <section class="panel">
- <div class="status"><b id="turn">あなたの番</b><span class="pill" id="depthLabel">CPU探索深度：8</span></div>
- <div class="scoreboard">
-  <div class="score"><span>あなた</span><strong id="p0score">0</strong></div>
-  <div class="score"><span>CPU</span><strong id="p1score">0</strong></div>
- </div>
- <div class="board">
-  <div class="store"><span>CPUの得点</span><b id="store1">0</b></div>
-  <div class="pits" id="topPits"><div class="rowlabel">CPU側</div></div>
-  <div class="store"><span>あなたの得点</span><b id="store0">0</b></div>
-  <div></div>
-  <div class="pits" id="bottomPits"><div class="rowlabel">あなた側（1〜6を選択）</div></div>
-  <div></div>
- </div>
- <div class="controls">
-  <button id="newGame">新しいゲーム</button>
-  <label>CPUの探索深度
-   <select id="depth"><option>4</option><option>6</option><option selected>8</option><option>10</option><option>12</option></select>
-  </label>
-  <button class="secondary" id="undo">1手戻す</button>
- </div>
- <div id="message" role="status">あなたが先手です。石の入った穴を選んでください。</div>
- <div class="rules">ルール：各穴4個で開始。反時計回りに石をまき、相手側の最後の穴が2個または3個なら獲得します。連続する相手側の2個・3個も獲得対象です。相手側の石をすべて取るグランドスラムは禁止。相手側が空なら、可能な場合は相手に石を渡す手を選びます。</div>
-</section>
-</main>
+<div class="status"><b id="turn">あなたの番</b><span class="pill" id="depthLabel">CPU探索深度：8</span></div>
+<div class="scoreboard"><div class="score"><span>あなた</span><strong id="p0score">0</strong></div><div class="score"><span>CPU</span><strong id="p1score">0</strong></div></div>
+<div class="board">
+<div class="store"><span>CPUのゴール</span><b id="store1">0</b></div>
+<div class="pits" id="topPits"><div class="rowlabel">CPU側（6 → 1）</div></div>
+<div class="store"><span>あなたのゴール</span><b id="store0">0</b></div>
+<div></div><div class="pits" id="bottomPits"><div class="rowlabel">あなた側（1 → 6）</div></div><div></div>
+</div>
+<div id="extraTurn" class="extra" aria-live="polite">★ もう一度あなたのターンです！ ★</div>
+<div class="controls"><button id="newGame">新しいゲーム</button><label>CPUの探索深度 <select id="depth"><option>4</option><option>6</option><option selected>8</option><option>10</option><option>12</option></select></label><button class="secondary" id="undo">1手戻す</button></div>
+<div id="message" role="status">あなたが先手です。石の入った穴を選んでください。</div>
+<div class="rules">ルール：各穴4個で開始。自分のゴールを通り、相手のゴールは飛ばして反時計回りに石をまきます。最後の石が自分のゴールに入ると追加ターン。最後の石が自分側の空の穴に入り、その向かい側に石がある場合は両方を獲得します。どちらかの側の穴がすべて空になると終了し、残りの石は反対側のプレイヤーが獲得します。</div>
+</section></main>
 <script>
 "use strict";
-const START = 4;
-let state, history = [], busy = false;
-const $ = id => document.getElementById(id);
-const side = p => p === 0 ? [0,1,2,3,4,5] : [6,7,8,9,10,11];
-const countSide = (s,p) => side(p).reduce((n,i)=>n+s.board[i],0);
-const rawMoves = s => side(s.turn).map(i=>i%6).filter(m=>s.board[(s.turn*6)+m]>0);
-
-function sow(board, player, pit) {
- const b = board.slice(), start = player*6+pit;
- let seeds=b[start], pos=start; b[start]=0;
- while(seeds>0) { pos=(pos+1)%12; if(pos===start) continue; b[pos]++; seeds--; }
- return {board:b,last:pos};
-}
-function applyUnchecked(s, move) {
- const player=s.turn, {board:b,last}=sow(s.board,player,move);
- let gained=0;
- const isOpp = player===0 ? last>=6 : last<6;
- if(isOpp) {
-  const oppTotal=countSide({board:b},1-player), captured=[];
-  let pos=last;
-  while((player===0 ? pos>=6 : pos<6) && (b[pos]===2 || b[pos]===3)) {
-   captured.push(pos); pos=(pos+11)%12;
-  }
-  const amount=captured.reduce((n,i)=>n+b[i],0);
-  if(amount<oppTotal) for(const i of captured) { gained+=b[i]; b[i]=0; }
+const START=4, sleep=ms=>new Promise(r=>setTimeout(r,ms));
+let state,history=[],busy=false,animationPit=-1,capturePits=[],extraTurnFor=-1;
+const $=id=>document.getElementById(id);
+const ownPits=p=>p===0?[0,1,2,3,4,5]:[7,8,9,10,11,12];
+const storeIndex=p=>p===0?6:13;
+const opponent=p=>1-p;
+const sideCount=(s,p)=>ownPits(p).reduce((n,i)=>n+s.board[i],0);
+function initialState(){const b=Array(14).fill(0);for(let i=0;i<6;i++){b[i]=START;b[i+7]=START;}return{board:b,scores:[0,0],turn:0};}
+function legalMoves(s){return ownPits(s.turn).map(i=>i%7).filter(m=>s.board[s.turn===0?m:m+7]>0);}
+function applyUnchecked(s,move){
+ const p=s.turn,b=s.board.slice(),start=p===0?move:move+7;let seeds=b[start],pos=start;b[start]=0;
+ while(seeds>0){pos=(pos+1)%14;if((p===0&&pos===13)||(p===1&&pos===6))continue;b[pos]++;seeds--;}
+ const scores=s.scores.slice();let next=1-p,captured=[];
+ if(pos===storeIndex(p)){next=p;}
+ else if((p===0&&pos>=0&&pos<=5)||(p===1&&pos>=7&&pos<=12)){
+  const opposite=12-pos;
+  if(b[pos]===1&&b[opposite]>0){captured=[pos,opposite];b[storeIndex(p)]+=b[pos]+b[opposite];b[pos]=0;b[opposite]=0;}
  }
- const scores=s.scores.slice(); scores[player]+=gained;
- return {board:b,scores,turn:1-player};
-}
-function legalMoves(s) {
- const moves=rawMoves(s);
- if(!moves.length) return [];
- if(countSide(s,1-s.turn)===0) return moves.filter(m=>countSide(applyUnchecked(s,m),1-s.turn)>0);
- return moves;
-}
-function terminal(s) { return s.scores[0]>=25 || s.scores[1]>=25 || legalMoves(s).length===0; }
-function finalState(s) {
- if(s.scores[0]>=25 || s.scores[1]>=25) return s;
- const scores=s.scores.slice(); scores[0]+=countSide(s,0); scores[1]+=countSide(s,1);
- return {board:Array(12).fill(0),scores,turn:s.turn};
-}
-function evaluate(s,root) {
- if(terminal(s)) { const f=finalState(s); return (f.scores[root]-f.scores[1-root])*10000; }
- return (s.scores[root]-s.scores[1-root])*120 +
-  (countSide(s,root)-countSide(s,1-root))*1.5 +
-  (s.turn===root ? legalMoves(s).length*.2 : 0);
-}
-function key(s) { return s.board.join(",")+"|"+s.scores.join(",")+"|"+s.turn; }
-function orderedMoves(s) {
- return legalMoves(s).map(m=>({m,g:applyUnchecked(s,m).scores[s.turn]-s.scores[s.turn]}))
-  .sort((a,b)=>b.g-a.g).map(x=>x.m);
-}
-function alphaBeta(s,depth,alpha,beta,root,path) {
- if(terminal(s)) { const f=finalState(s); return (f.scores[root]-f.scores[1-root])*10000; }
- if(depth<=0) return evaluate(s,root);
- const k=key(s), seen=path.get(k)||0;
- if(seen>=2) return evaluate(s,root)*.25;
- path.set(k,seen+1);
- const maximizing=s.turn===root, moves=orderedMoves(s);
- let value=maximizing?-Infinity:Infinity;
- for(const m of moves) {
-  const v=alphaBeta(applyUnchecked(s,m),depth-1,alpha,beta,root,path);
-  if(maximizing) { value=Math.max(value,v); alpha=Math.max(alpha,value); }
-  else { value=Math.min(value,v); beta=Math.min(beta,value); }
-  if(alpha>=beta) break;
+ scores[0]=b[6];scores[1]=b[13];
+ let ns={board:b,scores,turn:next,captured};
+ if(sideCount(ns,0)===0||sideCount(ns,1)===0){
+  b[6]+=sideCount(ns,0);b[13]+=sideCount(ns,1);
+  for(const i of [...ownPits(0),...ownPits(1)])b[i]=0;
+  scores[0]=b[6];scores[1]=b[13];
+  ns={board:b,scores,turn:next,ended:true,captured};
  }
- if(seen) path.set(k,seen); else path.delete(k);
- return value;
+ return ns;
 }
-function chooseMove(s,depth) {
- const moves=orderedMoves(s); if(!moves.length) return null;
- const root=s.turn; let best=moves[0];
- for(let d=1;d<=depth;d++) {
-  let a=-Infinity, bv=-Infinity, bm=best;
-  for(const m of [best,...moves.filter(x=>x!==best)]) {
-   const v=alphaBeta(applyUnchecked(s,m),d-1,a,Infinity,root,new Map());
-   if(v>bv) {bv=v;bm=m;} a=Math.max(a,bv);
-  }
-  best=bm;
- }
- return best;
+function terminal(s){return !!s.ended||s.scores[0]>=25||s.scores[1]>=25;}
+function finalState(s){return s;}
+function evaluate(s,root){if(terminal(s)){const f=finalState(s);return(f.scores[root]-f.scores[1-root])*10000;}
+ return(s.scores[root]-s.scores[1-root])*150+(sideCount(s,root)-sideCount(s,1-root))*1.2+(s.turn===root?legalMoves(s).length*.2:0);}
+function key(s){return s.board.join(",")+"|"+s.scores.join(",")+"|"+s.turn;}
+function orderedMoves(s){return legalMoves(s).map(m=>({m,g:applyUnchecked(s,m).scores[s.turn]-s.scores[s.turn]})).sort((a,b)=>b.g-a.g).map(x=>x.m);}
+function alphaBeta(s,d,a,b,root,path){
+ if(terminal(s))return evaluate(s,root);if(d<=0)return evaluate(s,root);
+ const k=key(s),seen=path.get(k)||0;if(seen>=2)return 0;path.set(k,seen+1);
+ const max=s.turn===root;let v=max?-Infinity:Infinity;
+ for(const m of orderedMoves(s)){const child=applyUnchecked(s,m),x=alphaBeta(child,d-1,a,b,root,path);if(max){v=Math.max(v,x);a=Math.max(a,v);}else{v=Math.min(v,x);b=Math.min(b,v);}if(a>=b)break;}
+ if(seen)path.set(k,seen);else path.delete(k);return v;
 }
-function render() {
- $("p0score").textContent=state.scores[0]; $("p1score").textContent=state.scores[1];
- $("store0").textContent=state.scores[0]; $("store1").textContent=state.scores[1];
- $("turn").textContent=terminal(state)?"ゲーム終了":state.turn===0?"あなたの番":"CPU思考中";
+function chooseMove(s,depth){const moves=orderedMoves(s);if(!moves.length)return null;const root=s.turn;let best=moves[0];
+ for(let d=1;d<=depth;d++){let a=-Infinity,bestV=-Infinity,bm=best;for(const m of[best,...moves.filter(x=>x!==best)]){const v=alphaBeta(applyUnchecked(s,m),d-1,a,Infinity,root,new Map());if(v>bestV){bestV=v;bm=m;}a=Math.max(a,bestV);}best=bm;}return best;}
+function makePit(i,enabled){const el=document.createElement("button");el.className="pit"+(enabled?" legal":"")+(animationPit===i?" active":"")+(capturePits.includes(i)?" captured":"");el.disabled=!enabled;el.innerHTML='<span class="count">'+state.board[i]+'</span><span class="num">穴 '+((i%7)+1)+'</span>';if(enabled)el.addEventListener("click",()=>humanMove(i));return el;}
+function render(){
+ $("p0score").textContent=state.scores[0];$("p1score").textContent=state.scores[1];$("store0").textContent=state.board[6];$("store1").textContent=state.board[13];
+ $("turn").textContent=terminal(state)?"ゲーム終了":busy?(state.turn===0?"あなたの手を再生中":"CPUの手を再生中"):(state.turn===0?"あなたの番":"CPU思考中");
  $("depthLabel").textContent="CPU探索深度："+$("depth").value;
+ $("extraTurn").classList.toggle("show",extraTurnFor===state.turn&&!busy&&!terminal(state));
  const legal=new Set(state.turn===0&&!busy?legalMoves(state):[]);
- $("topPits").innerHTML='<div class="rowlabel">CPU側（6 → 1）</div>';
- for(let i=11;i>=6;i--) $("topPits").append(makePit(i, false));
- $("bottomPits").innerHTML='<div class="rowlabel">あなた側（1 → 6）</div>';
- for(let i=0;i<6;i++) $("bottomPits").append(makePit(i,legal.has(i)));
+ $("topPits").innerHTML='<div class="rowlabel">CPU側（6 → 1）</div>';for(let i=12;i>=7;i--)$("topPits").append(makePit(i,false));
+ $("bottomPits").innerHTML='<div class="rowlabel">あなた側（1 → 6）</div>';for(let i=0;i<6;i++)$("bottomPits").append(makePit(i,legal.has(i)));
 }
-function makePit(i,enabled) {
- const b=document.createElement("button"); b.className="pit"+(enabled?" legal":""); b.disabled=!enabled;
- b.innerHTML='<span class="count">'+state.board[i]+'</span><span class="num">穴 '+((i%6)+1)+'</span>';
- b.setAttribute("aria-label","穴 "+((i%6)+1)+"、石 "+state.board[i]+"個");
- if(enabled) b.addEventListener("click",()=>humanMove(i%6));
- return b;
+function say(t){$("message").textContent=t;}
+function checkEnd(){if(!terminal(state))return false;const f=finalState(state),a=f.scores[0],b=f.scores[1];state=f;render();say("対局終了！ あなた "+a+" - CPU "+b+"："+(a>b?"あなたの勝ち":a<b?"CPUの勝ち":"引き分け"));return true;}
+async function animateMove(base,move,label){
+ const p=base.turn,start=p===0?move:move+7,b=base.board.slice();let seeds=b[start],pos=start;b[start]=0;animationPit=start;state={...base,board:b};say(label+"が穴 "+(move+1)+" から石をまいています…");render();await sleep(220);
+ while(seeds>0){pos=(pos+1)%14;if((p===0&&pos===13)||(p===1&&pos===6))continue;b[pos]++;seeds--;animationPit=pos;state={...base,board:b.slice()};say(label+"：石を移動中… 残り "+seeds+" 個");render();await sleep(230);}
+ const resolved=applyUnchecked(base,move);capturePits=resolved.captured||[];
+ if(capturePits.length){say(label+"が向かい合う石を獲得！");render();await sleep(600);}
+ const earnedExtra=resolved.turn===p&&!resolved.ended;
+ state=resolved;animationPit=-1;capturePits=[];extraTurnFor=earnedExtra?p:-1;render();
+ if(earnedExtra){say(label+"は自分のゴールに最後の石を入れました。もう一度プレイできます！");await sleep(850);}
 }
-function say(t) { $("message").textContent=t; }
-function finishIfNeeded() {
- if(!terminal(state)) return false;
- const f=finalState(state);
- const a=f.scores[0],b=f.scores[1];
- say("対局終了！ あなた "+a+" - CPU "+b+"："+(a>b?"あなたの勝ち":a<b?"CPUの勝ち":"引き分け"));
- render(); return true;
+async function humanMove(m){
+ if(busy||state.turn!==0||!legalMoves(state).includes(m))return;
+ history.push(structuredClone(state));busy=true;extraTurnFor=-1;
+ await animateMove(state,m,"あなた");
+ if(checkEnd()){busy=false;return;}
+ while(state.turn===0&&!terminal(state)){
+  busy=false;render();return; // human receives another move after extra turn
+ }
+ busy=true;render();say("CPUが次の手を考えています…");await sleep(350);
+ while(state.turn===1&&!terminal(state)){
+  const cm=chooseMove(state,Number($("depth").value));if(cm===null)break;
+  history.push(structuredClone(state));extraTurnFor=-1;await animateMove(state,cm,"CPU");
+  if(checkEnd())break;
+  if(state.turn!==1)break;
+ }
+ busy=false;extraTurnFor=-1;render();checkEnd();
 }
-function humanMove(m) {
- if(busy||state.turn!==0||!legalMoves(state).includes(m)) return;
- history.push(structuredClone(state));
- state=applyUnchecked(state,m); render();
- if(finishIfNeeded()) return;
- busy=true; render(); say("CPUが考えています…");
- setTimeout(()=>{
-  const depth=Number($("depth").value), m=chooseMove(state,depth);
-  if(m!==null) { history.push(structuredClone(state)); state=applyUnchecked(state,m); say("CPUは穴 "+(m+1)+" を選びました。"); }
-  busy=false; render(); finishIfNeeded();
- },30);
-}
-function newGame() {
- state={board:Array(12).fill(START),scores:[0,0],turn:0}; history=[]; busy=false;
- say("新しいゲームです。あなたが先手です。"); render();
-}
-$("newGame").addEventListener("click",newGame);
-$("depth").addEventListener("change",()=>{render();});
-$("undo").addEventListener("click",()=>{
- if(busy||history.length===0) return;
- state=history.pop();
- if(state.turn===1 && history.length) state=history.pop();
- say("直前の手を戻しました。"); render();
-});
+function newGame(){state=initialState();history=[];busy=false;animationPit=-1;capturePits=[];extraTurnFor=-1;say("新しいゲームです。あなたが先手です。");render();}
+$("newGame").addEventListener("click",newGame);$("depth").addEventListener("change",render);
+$("undo").addEventListener("click",()=>{if(busy||!history.length)return;state=history.pop();extraTurnFor=-1;say("直前の手を戻しました。");render();});
 newGame();
 </script>
-</body>
-</html>
+</body></html>
